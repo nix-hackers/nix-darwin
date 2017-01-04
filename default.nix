@@ -41,6 +41,7 @@ let
         ./modules/services/emacs.nix
         ./modules/services/nix-daemon.nix
         ./modules/programs/bash.nix
+        ./modules/programs/emacs.nix
         ./modules/programs/fish.nix
         ./modules/programs/nix-script.nix
         ./modules/programs/tmux.nix
