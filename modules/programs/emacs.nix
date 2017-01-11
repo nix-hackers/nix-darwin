@@ -5,41 +5,7 @@ with lib;
 let
   cfg = config.programs.emacs;
 
-  emacs = pkgs.emacsWithPackages(emacsPackages: with {
-    elpa = emacsPackages.elpaPackages;
-    melpa = emacsPackages.melpaPackages;
-  }; with melpa; [
-    # back-button
-    # centered-window-mode
-    # diff-hl
-    # elixir-mode
-    fill-column-indicator
-    # TODO: flycheck
-    # TODO: ghc
-    # TODO: helm
-    # helm-projectile
-    # ido-ubiquitous
-    # TODO: intero
-    # js2-mode
-    # TODO: json-mode
-    # TODO: markdown-mode
-    # TODO: magit
-    # mwim
-    # neotree
-    # nix-sandbox
-    nix-mode
-    # TODO: elpa.org
-    # projectile
-    # purescript-mode
-    # python-mode
-    # scala-mode
-    # scss-mode
-    # tabbar
-    # transpose-frame
-    # web-mode
-    # ws-butler
-    # TODO: yaml-mode
-  ]);
+  emacs = pkgs.emacsWithPackages(cfg.packages);
 
   text = import ../lib/write-text.nix {
     inherit lib;
@@ -73,6 +39,16 @@ in {
       '';
     };
 
+    programs.emacs.packages = mkOption {
+      # FIXME: type
+      default = (_: []);
+      description = ''
+        A function from a package set to a list of packages
+        (the packages that will be available in Emacs).
+
+        N.B. This is passed to `emacsWithPackages` internally.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
